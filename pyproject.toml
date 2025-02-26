@@ -1,0 +1,145 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "terminal-extensions"
+version = "0.1.0"
+description = "A library for extending terminal environments with custom hooks"
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+keywords = ["terminal", "extensions", "cli"]
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    # Testing
+    "pytest>=7.0",
+    "pytest-asyncio",
+
+    # Linting and Type Checking
+    "mypy>=0.950",
+    "ruff",
+    "black>=22.0",
+    "types-click",      # type stubs for click
+    "types-PyYAML",     # type stubs for PyYAML (used by mkdocs)
+    "types-Markdown",   # type stubs for markdown
+    "types-requests",   # type stubs for requests
+
+    # Development Tools
+    "pre-commit",
+    "build",
+    "twine",
+
+    # Documentation
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+]
+
+lint = [
+    "pre-commit",
+    "ruff",
+    "black>=22.0",
+    "mypy>=0.950",
+]
+
+test = [
+    "pytest>=7.0",
+    "pytest-asyncio",
+]
+
+docs = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+]
+
+[project.scripts]
+terminal-ext = "terminal_extensions.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/swecc/terminal-extensions"
+Documentation = "https://github.com/swecc/terminal-extensions#readme"
+Issues = "https://github.com/swecc/terminal-extensions/issues"
+
+[tool.poetry]
+name = "terminal-extensions"
+version = "0.1.0"
+description = "A library for extending terminal environments with custom hooks"
+authors = ["Your Name <your.email@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "terminal_extensions"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0"
+black = "^22.0"
+mypy = "^0.950"
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+include = '\.pyi?$'
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.ruff]
+lint.select = ["E", "F", "I", "N", "W", "B", "UP", "PL", "RUF"]
+lint.ignore = []
+line-length = 100
+target-version = "py38"
+fix = true
+unsafe-fixes = false
+
+[tool.ruff.lint.isort]
+known-first-party = ["terminal_extensions"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]
+
+[tool.hatch.build]
+exclude = [
+    "tests/*",
+    "venv/*",
+    ".git/*",
+    "docs/*",
+    "*.pyc",
+    "__pycache__/*",
+    ".pytest_cache/*",
+    ".mypy_cache/*",
+    ".ruff_cache/*",
+    "dist/*",
+    "build/*",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["terminal_extensions"]
