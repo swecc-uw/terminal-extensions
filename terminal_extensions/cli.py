@@ -1,9 +1,8 @@
-import os
-import sys
 import importlib.util
-from typing import Callable, List, Optional, Tuple
-from pathlib import Path
 import subprocess
+import sys
+from pathlib import Path
+from typing import Callable, List, Optional, Tuple
 
 registered_hooks: List[Tuple[Optional[str], Callable]] = []
 
@@ -59,7 +58,7 @@ def main() -> None:
 
             if should_continue:
                 try:
-                    subprocess.run(command, shell=True)
+                    subprocess.run(command, shell=True, check=False)
                 except Exception as e:
                     print(f"Error executing command: {e}", file=sys.stderr)
 
